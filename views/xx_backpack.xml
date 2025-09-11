@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        #actions
+        <record id="xx_action_backpack" model="ir.actions.act_window">
+            <field name="name">Backpack Setups</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">backpack.backpack</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="xx_action_brand" model="ir.actions.act_window">
+            <field name="name">Backpack Brands</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">backpack.brand</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="xx_action_model" model="ir.actions.act_window">
+            <field name="name">Backpack Models</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">backpack.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="xx_action_backpack_item" model="ir.actions.act_window">
+            <field name="name">Backpack Items</field>
+            <field name="res_model">backpack.item</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first backpack item!
+                </p>
+                <p>
+                    Add items to your backpack setup to track what you're carrying.
+                </p>
+            </field>
+        </record>
+
+        #menu items
+        <menuitem id="xx_backpack_main_menu" name="Backpack" sequence="1"/>
+        <menuitem id="xx_backpack_type_menu" name="Setups" parent="xx_backpack_main_menu" action="xx_action_backpack" groups="xx_backpack.group_backpack_manager" sequence="10"/>
+        <menuitem id="xx_backpack_item_menu" name="Items" parent="xx_backpack_main_menu" action="xx_action_backpack_item" groups="xx_backpack.group_backpack_manager" sequence="20"/>
+        <menuitem id="xx_backpack_brand_menu" name="Brands" parent="xx_backpack_main_menu" action="xx_action_brand" groups="xx_backpack.group_backpack_manager" sequence="30"/>
+        <menuitem id="xx_backpack_model_menu" name="Models" parent="xx_backpack_main_menu" action="xx_action_model" groups="xx_backpack.group_backpack_manager" sequence="40"/>
+
+
+        <record id="xx_view_backpack_form_view" model="ir.ui.view">
+            <field name="name">backpack.backpack.form.view</field>
+            <field name="model">backpack.backpack</field>
+            <field name="arch" type="xml">
+                <form string="Backpack Setup">
+                    <sheet>
+                        <div class="oe_title">
+                            <h3>Backpack Setup</h3>
+                        </div>
+                        <div style="margin-top: 15px;"></div>
+                        <group string="General Information">
+                            <group>
+                                <field name="xx_setup_name" string="Setup Name" required="1"/>
+                                <field name="xx_period_used_from" string="Start of trip"/>
+                                <field name="xx_period_used_till" string="End of trip"/>
+                            </group>
+                            <group>
+                                <field name="xx_pack_brand"/>
+                                <field name="xx_pack_model"/>
+                                <field name="xx_backpack_owner" string="Backpack Setup Owner" widget="res_partner_many2one"/>
+                            </group>
+                        </group>
+                        <group string="Additional Details">
+                            <group>
+                                <!-- Add your new fields here -->
+                                <!-- Example fields: -->
+                                <!-- <field name="xx_field1" string="Field 1"/> -->
+                                <!-- <field name="xx_field2" string="Field 2"/> -->
+                            </group>
+                            <group>
+                                <!-- Add more fields here if needed -->
+                                <!-- <field name="xx_field3" string="Field 3"/> -->
+                                <!-- <field name="xx_field4" string="Field 4"/> -->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Backpack Items" name="items">
+                                <field name="xx_backpack_lines" widget="one2many_list" mode="tree">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="xx_backpack_product_id"/>
+                                        <field name="xx_item_description"/>
+                                        <field name="xx_item_qty"/>
+                                        <field name="xx_item_weight"/>
+                                        <field name="xx_item_weight_uom"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="xx_view_backpack_brand_form_view" model="ir.ui.view">
+            <field name="name">backpack.brand.form.view</field>
+            <field name="model">backpack.brand</field>
+            <field name="arch" type="xml">
+                <form string="Backpack Brand">
+                    <sheet>
+                        <div class="oe_title">
+                            <h3>Backpack Brand</h3>
+                        </div>
+                        <div style="margin-top: 15px;"></div>
+                        <group string="General Information">
+                            <group>
+                                <field name="xx_brand_name" string="Brand Name" required="1"/>
+                            </group>
+                            <!--<group>
+                                <field name="xx_backpack_owner" string="Backpack Setup Owner" widget="res_partner_many2one"/>
+                            </group> -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="xx_view_backpack_model_form_view" model="ir.ui.view">
+            <field name="name">backpack.model.form.view</field>
+            <field name="model">backpack.model</field>
+            <field name="arch" type="xml">
+                <form string="Backpack Model">
+                    <sheet>
+                        <field name="xx_image_1920" widget="image" class="oe_avatar" options='{"preview_image": "image_128"}'/>
+                        <div class="oe_title">
+                            <h3><field name="xx_model_name" placeholder="Backpack Model Name"/></h3>
+                        </div>
+                        <group string="General Information">
+                            <group>
+                                <field name="xx_backpack_brand_id" required="1"/>
+                                <field name="xx_model_name" required="1"/>
+                            </group>
+                            <group>
+                                <label for="xx_model_weight"/>
+                                <div class="o_row">
+                                    <field name="xx_model_weight"/>
+                                    <field name="xx_model_weight_uom"/>
+                                </div>
+                                <label for="xx_model_volume"/>
+                                <div class="o_row">
+                                    <field name="xx_model_volume"/>
+                                    <field name="xx_model_volume_uom"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_backpack_item_form" model="ir.ui.view">
+            <field name="name">backpack.item.form</field>
+            <field name="model">backpack.item</field>
+            <field name="arch" type="xml">
+                <form string="Backpack Item">
+                    <sheet>
+                        <group>
+                            <group string="Item Information">
+                                <field name="xx_backpack_product_id" required="1"/>
+                                <field name="xx_item_description"/>
+                                <field name="xx_item_qty"/>
+                                <field name="xx_item_weight"/>
+                                <field name="xx_item_weight_uom"/>
+                            </group>
+                            <group string="Setup Information">
+                                <field name="xx_backpack_order_id"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- De boomweergave (lijstweergave) voor het 'backpack.backpack' model. -->
+        <record id="xx_view_backpack_tree_view" model="ir.ui.view">
+            <field name="name">backpack.backpack.tree.view</field>
+            <field name="model">backpack.backpack</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Veld dat de naam van de setup in de lijst weergeeft. -->
+                    <field name="xx_setup_name"/>
+                    <field name="xx_backpack_owner"/>
+                    <field name="xx_pack_brand"/>
+                    <field name="xx_pack_model"/>
+                </tree>
+            </field>
+        </record>
+        <record id="xx_view_backpack_brand_tree_view" model="ir.ui.view">
+            <field name="name">backpack.brand.tree.view</field>
+            <field name="model">backpack.brand</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Veld dat de naam van de setup in de lijst weergeeft. -->
+                    <field name="xx_brand_name"/>
+                </tree>
+            </field>
+        </record>
+         <record id="xx_view_backpack_model_tree_view" model="ir.ui.view">
+            <field name="name">backpack.model.tree.view</field>
+            <field name="model">backpack.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Veld dat de naam van de setup in de lijst weergeeft. -->
+                    <field name="xx_model_name" string="Model"/>
+                    <field name="xx_backpack_brand_id" string="Brand"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_backpack_item_tree" model="ir.ui.view">
+            <field name="name">backpack.item.tree</field>
+            <field name="model">backpack.item</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="xx_backpack_product_id"/>
+                    <field name="xx_item_description"/>
+                    <field name="xx_item_qty"/>
+                    <field name="xx_item_weight"/>
+                    <field name="xx_item_weight_uom"/>
+                    <field name="xx_backpack_order_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- De zoekweergave voor het 'backpack.backpack' model. -->
+        <record id="xx_view_backpack_search_view" model="ir.ui.view">
+            <field name="name">Backpack Search</field>
+            <field name="model">backpack.backpack</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Veld om te zoeken op de naam van de setup. -->
+                    <field name="xx_setup_name"/>
+                </search>
+            </field>
+        </record>
+        <record id="xx_view_backpack_brand_search_view" model="ir.ui.view">
+            <field name="name">Backpack Brand Search</field>
+            <field name="model">backpack.brand</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Veld om te zoeken op de naam van de setup. -->
+                    <field name="xx_brand_name"/>
+                </search>
+            </field>
+        </record>
+        <record id="xx_view_backpack_model_search_view" model="ir.ui.view">
+            <field name="name">Backpack Model Search</field>
+            <field name="model">backpack.model</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Veld om te zoeken op de naam van de setup. -->
+                    <field name="xx_model_name"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>
