@@ -37,10 +37,10 @@
 
         #menu items
         <menuitem id="xx_backpack_main_menu" name="Backpack" sequence="1"/>
-        <menuitem id="xx_backpack_type_menu" name="Setups" parent="xx_backpack_main_menu" action="xx_action_backpack" groups="xx_backpack.group_backpack_manager" sequence="10"/>
-        <menuitem id="xx_backpack_item_menu" name="Items" parent="xx_backpack_main_menu" action="xx_action_backpack_item" groups="xx_backpack.group_backpack_manager" sequence="20"/>
-        <menuitem id="xx_backpack_brand_menu" name="Brands" parent="xx_backpack_main_menu" action="xx_action_brand" groups="xx_backpack.group_backpack_manager" sequence="30"/>
-        <menuitem id="xx_backpack_model_menu" name="Models" parent="xx_backpack_main_menu" action="xx_action_model" groups="xx_backpack.group_backpack_manager" sequence="40"/>
+        <menuitem id="xx_backpack_type_menu" name="Setups" parent="xx_backpack_main_menu" action="xx_action_backpack" groups="kdr_backpack_setup.group_backpack_manager" sequence="10"/>
+        <menuitem id="xx_backpack_item_menu" name="Items" parent="xx_backpack_main_menu" action="xx_action_backpack_item" groups="kdr_backpack_setup.group_backpack_manager" sequence="20"/>
+        <menuitem id="xx_backpack_brand_menu" name="Brands" parent="xx_backpack_main_menu" action="xx_action_brand" groups="kdr_backpack_setup.group_backpack_manager" sequence="30"/>
+        <menuitem id="xx_backpack_model_menu" name="Models" parent="xx_backpack_main_menu" action="xx_action_model" groups="kdr_backpack_setup.group_backpack_manager" sequence="40"/>
 
 
         <record id="xx_view_backpack_form_view" model="ir.ui.view">
@@ -125,7 +125,6 @@
             <field name="arch" type="xml">
                 <form string="Backpack Model">
                     <sheet>
-                        <field name="xx_image_1920" widget="image" class="oe_avatar" options='{"preview_image": "image_128"}'/>
                         <div class="oe_title">
                             <h3><field name="xx_model_name" placeholder="Backpack Model Name"/></h3>
                         </div>
