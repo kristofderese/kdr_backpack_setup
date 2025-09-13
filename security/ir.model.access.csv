@@ -5,5 +5,5 @@ access_backpack_item_manager,access.backpack.manager,kdr_backpack_setup.model_ba
 access_backpack_item_user,access.backpack.user,kdr_backpack_setup.model_backpack_item,kdr_backpack_setup.group_backpack_user,1,0,0,0
 access_backpack_brand_manager,access.backpack.manager,kdr_backpack_setup.model_backpack_brand,kdr_backpack_setup.group_backpack_manager,1,1,1,1
 access_backpack_brand_user,access.backpack.user,kdr_backpack_setup.model_backpack_brand,kdr_backpack_setup.group_backpack_user,1,0,0,0
-access_backpack_model_manager,access.backpack.manager,kdr_backpack_setup.model_backpack_item,kdr_backpack_setup.group_backpack_manager,1,1,1,1
-access_backpack_model_user,access.backpack.user,kdr_backpack_setup.model_backpack_item,kdr_backpack_setup.group_backpack_user,1,0,0,0
+access_backpack_model_manager,access.backpack.manager,kdr_backpack_setup.model_backpack_model,kdr_backpack_setup.group_backpack_manager,1,1,1,1
+access_backpack_model_user,access.backpack.user,kdr_backpack_setup.model_backpack_model,kdr_backpack_setup.group_backpack_user,1,0,0,0
