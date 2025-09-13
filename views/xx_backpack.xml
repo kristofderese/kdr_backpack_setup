@@ -89,6 +89,7 @@
                                         <field name="xx_item_qty"/>
                                         <field name="xx_item_weight"/>
                                         <field name="xx_item_weight_uom"/>
+                                        <field name="xx_item_cost"/>
                                     </tree>
                                 </field>
                             </page>
