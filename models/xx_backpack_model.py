@@ -1,19 +1,12 @@
-import logging
+
 from odoo import models, fields, api
 
-_logger = logging.getLogger(__name__)
 
 class BackpackModel(models.Model):
     _name = "backpack.model"
     _description = "Backpack Model"
     _rec_name = "xx_model_name"
 
-    def write(self, vals):
-        _logger.info("BEFORE WRITE - image_1920: %s", bool(self.image_1920))
-        _logger.info("WRITE VALS: %s", vals.keys())
-        result = super().write(vals)
-        _logger.info("AFTER WRITE - image_1920: %s", bool(self.image_1920))
-        return result
 
     image_1920 = fields.Image(string="Image", max_width=1920, max_height=1920)
     image_1024 = fields.Image("Image 1024", related="image_1920", max_width=1024, max_height=1024)
