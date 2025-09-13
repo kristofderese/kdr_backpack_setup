@@ -59,6 +59,7 @@
                                 <field name="xx_period_used_from" string="Start of trip"/>
                                 <field name="xx_period_used_till" string="End of trip"/>
                             </group>
+                            <field name="xx_setup_image" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
                             <group>
                                 <field name="xx_pack_brand"/>
                                 <field name="xx_pack_model"/>
@@ -125,6 +126,7 @@
             <field name="arch" type="xml">
                 <form string="Backpack Model">
                     <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
                         <div class="oe_title">
                             <h3><field name="xx_model_name" placeholder="Backpack Model Name"/></h3>
                         </div>

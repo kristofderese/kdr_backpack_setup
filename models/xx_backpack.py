@@ -20,10 +20,10 @@ class Backpack(models.Model):
     #Backpack fields
     xx_pack_brand = fields.Many2one('backpack.brand', string="Backpack Brand", copy=False)
     xx_pack_model = fields.Many2one('backpack.model', string="Backpack Model", copy=False, domain="[('xx_backpack_brand_id', '=', xx_pack_brand)]")
-    #xx_model_image = fields.Image(
-     #   related='xx_pack_model.xx_image_1920',
-      #  string="Image",
-     #   readonly=True)
+    xx_setup_image = fields.Image(
+        related='xx_pack_model.image_1920',
+        string="Image",
+        readonly=True)
 
     # Lines and line based computes
     xx_backpack_lines = fields.One2many(
