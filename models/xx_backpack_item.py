@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 class BackpackItem(models.Model):
     _name = "backpack.item"
@@ -29,4 +29,10 @@ class BackpackItem(models.Model):
     #xx_is_item_packed = fields.Boolean
     #xx_is_item_used = fields.Boolean
     #xx_item_cat =
+
+    @api.onchange('xx_backpack_product_id')
+    def _onchange_backpack_product(self):
+        if self.xx_backpack_product_id:
+            self.xx_item_weight = self.xx_backpack_product_id.weight
+            self.xx_item_description = self.xx_backpack_product_id.description_sale
 
