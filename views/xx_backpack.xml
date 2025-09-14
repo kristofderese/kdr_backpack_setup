@@ -66,6 +66,7 @@
                                     <field name="xx_setup_weight" readonly="1"/>
                                     <field name="xx_setup_weight_uom"/>
                                 </div>
+                                <field name="xx_pack_weight"/>
                             </group>
                             <group>
                                 <field name="xx_pack_brand"/>

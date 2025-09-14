@@ -29,6 +29,7 @@ class Backpack(models.Model):
     #Backpack fields
     xx_pack_brand = fields.Many2one('backpack.brand', string="Backpack Brand", copy=False)
     xx_pack_model = fields.Many2one('backpack.model', string="Backpack Model", copy=False, domain="[('xx_backpack_brand_id', '=', xx_pack_brand)]")
+    xx_pack_weight = fields.Float(string="Backpack Weight", default=0)
     xx_setup_image = fields.Image(
         related='xx_pack_model.image_1920',
         string="Image",
@@ -42,10 +43,9 @@ class Backpack(models.Model):
         string="Backpack Items",
         copy=True, auto_join=True)
 
-
     @api.depends('xx_backpack_lines.xx_item_weight', 'xx_backpack_lines.xx_item_weight_uom',
-                 'xx_backpack_lines.xx_item_qty', 'xx_setup_weight_uom', 'xx_pack_model.xx_model_weight',
-                 'xx_pack_model.xx_model_weight_uom')
+                 'xx_backpack_lines.xx_item_qty', 'xx_setup_weight_uom', 'xx_pack_weight',
+                 'xx_pack_model.xx_model_weight', 'xx_pack_model.xx_model_weight_uom')
     def _compute_setup_weight(self):
         for record in self:
             total_weight = 0.0
@@ -55,16 +55,11 @@ class Backpack(models.Model):
                 record.xx_setup_weight = 0.0
                 continue
 
-            # Add backpack model weight
-            if record.xx_pack_model and record.xx_pack_model.xx_model_weight:
-                model_weight = record.xx_pack_model.xx_model_weight
-                model_uom = record.xx_pack_model.xx_model_weight_uom
-
-                if model_uom and model_uom.category_id == target_uom.category_id:
-                    # Convert model weight to target UoM
-                    converted_weight = model_uom._compute_quantity(
-                        model_weight, target_uom, round=False)
-                    total_weight += converted_weight
+            # Add backpack weight (use xx_pack_weight field, not model weight)
+            if record.xx_pack_weight:
+                # Assuming xx_pack_weight is in the same UoM as xx_setup_weight_uom
+                # You might need UoM conversion here too if they can be different
+                total_weight += record.xx_pack_weight
 
             # Add items weight
             for line in record.xx_backpack_lines:
@@ -72,7 +67,6 @@ class Backpack(models.Model):
                     item_total_weight = line.xx_item_weight * (line.xx_item_qty or 1)
                     source_uom = line.xx_item_weight_uom
 
-                    # Only convert if UoMs are in the same category (Weight)
                     if source_uom.category_id == target_uom.category_id:
                         converted_weight = source_uom._compute_quantity(
                             item_total_weight, target_uom, round=False)
@@ -84,3 +78,10 @@ class Backpack(models.Model):
     def _onchange_setup_weight_uom(self):
         # Trigger recomputation when UoM changes
         self._compute_setup_weight()
+
+    @api.onchange('xx_pack_model')
+    def _onchange_pack_weight(self):
+        if self.xx_pack_model and self.xx_pack_model.xx_model_weight:
+            self.xx_pack_weight = self.xx_pack_model.xx_model_weight
+        else:
+            self.xx_pack_weight = 0.0
