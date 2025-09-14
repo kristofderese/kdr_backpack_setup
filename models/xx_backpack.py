@@ -1,5 +1,6 @@
 from odoo import fields, models
 
+
 class Backpack(models.Model):
     _name = "backpack.backpack"
     _description = "Information about backpack"
@@ -23,7 +24,8 @@ class Backpack(models.Model):
     xx_setup_image = fields.Image(
         related='xx_pack_model.image_1920',
         string="Image",
-        readonly=True)
+        readonly=True,
+        store=False)
 
     # Lines and line based computes
     xx_backpack_lines = fields.One2many(

@@ -53,7 +53,7 @@
                             <h3>Backpack Setup</h3>
                         </div>
                         <div style="margin-top: 15px;"></div>
-                        <field name="xx_setup_image" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                        <field name="xx_setup_image" widget="image" class="oe_avatar"/>
                         <group string="General Information">
                             <group>
                                 <field name="xx_setup_name" string="Setup Name" required="1"/>
