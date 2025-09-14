@@ -61,6 +61,13 @@
                                 <field name="xx_period_used_till" string="End of trip"/>
                             </group>
                             <group>
+                                <label for="xx_setup_weight"/>
+                                 <div class="o_row">
+                                    <field name="xx_setup_weight" readonly="1"/>
+                                    <field name="xx_setup_weight_uom"/>
+                                </div>
+                            </group>
+                            <group>
                                 <field name="xx_pack_brand"/>
                                 <field name="xx_pack_model"/>
                                 <field name="xx_backpack_owner" string="Backpack Setup Owner" widget="res_partner_many2one"/>
